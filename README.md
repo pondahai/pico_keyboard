@@ -56,7 +56,8 @@
 1.  安裝 **Arduino IDE**。
 2.  在「開發板管理器」中，安裝 **Earle F. Philhower, III** 的 **Raspberry Pi Pico/RP2040** 核心。
 3.  在 **工具 > 開發板** 中選擇 "Raspberry Pi Pico"。
-4.  **【最重要的一步】** 在 **工具 > USB Stack** 中，選擇 **"Adafruit TinyUSB"**。這會啟用複合式 USB 裝置功能。
+4.  ~**【最重要的一步】** 在 **工具 > USB Stack** 中，選擇 **"Adafruit TinyUSB"**。這會啟用複合式 USB 裝置功能。~
+5.  因為gemini一直堅持使用 **"Adafruit TinyUSB"** 但是HID一直無法正常啟用 因此我去找討論區有人提到標準庫可以支援標準的 Keyboard.h 於是USB Stack就切換回Pico SDK 並且使用標準的 Keyboard.h
 
 ### 編譯與上傳
 1.  用 Arduino IDE 打開 `.ino` 檔案。
@@ -94,6 +95,7 @@ const uint8_t keymap_hid[8][8] = {
 ```
 *   陣列的 `[row][col]` 索引與您在**除錯模式**下看到的座標完全對應。
 *   陣列中的值是標準的 **USB HID Usage ID**（也稱為 Scancode）。您可以在程式碼頂部的 `#define` 區域找到常用鍵的定義，或查詢相關的 USB HID 文件。
+*   這裡應使用除錯模式 透過序列埠監控器觀察硬體按鍵對應的keymap位置 然後去keymap陣列變數中填入正確對應的按鍵。
 
 ## 💡 未來可擴展方向
 
