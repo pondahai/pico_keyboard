@@ -100,6 +100,10 @@ const uint8_t keymap_hid[8][8] = {
 
 ## 💡 未來可擴展方向
 
+*   **TODO — 同步掌機鍵盤硬體改版**（見 `rp2040-retro-handheld/docs/HARDWARE.md §2.2`）：
+    *   目前程式仍寫死舊版 4 腳接線（`CLOCK = GP26`、`DATA_IN = GP27`）。
+    *   改版後需支援 3 腳共用接線：`KBD_SHARED_DATA=1`（74HC165 QH 經 1 kΩ 共用 `GP15`）與 `KBD_CLK_ON_LCD_DC=1`（CLOCK 共用 `GP20`），空出 `GP26`/`GP27`。
+    *   同時需加入「未接鍵盤防鬼鍵」處理：啟用輸入腳內部下拉（`gpio_pull_down` / `INPUT_PULLDOWN`），並在共用腳切輸入前先主動拉低放電（`gpio_put(15, 0)`），配合硬體端 GP15 47–100 kΩ 下拉電阻。
 *   實現多層 Keymap (Fn 層)。
 *   加入巨集功能。
 *   Tap Dance（輕觸/長按不同功能）。
